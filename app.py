@@ -1,7 +1,7 @@
-from flask import Flask
+from flask import Flask,render_template
 app = Flask(__name__)
 
-name = 'Grey Li'
+name = 'Wang xiaozai'
 movies = [
 {'title': 'My Neighbor Totoro', 'year': '1988'},
 {'title': 'Dead Poets Society', 'year': '1989'},
@@ -14,8 +14,7 @@ movies = [
 {'title': 'WALL-E', 'year': '2008'},
 {'title': 'The Pork of Music', 'year': '2012'},
 ]
-from flask import Flask, render_template
-# ...
+
 @app.route('/')
 def index():
-    return render_template('index.html', name=name, movies=movies)
+      return render_template('index.html', name=name, movies=movies)
