@@ -74,6 +74,7 @@ nav li a:hover {
     padding: 3px 5px;
 }
 
+
 /* 覆盖某些浏览器对 input 元素定义的字体 */
 input[type=submit] {
     font-family: inherit;

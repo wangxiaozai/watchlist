@@ -36,8 +36,11 @@ class User(db.Model,UserMixin):
 
 class Movie(db.Model): # 表名将会是 movie
     id = db.Column(db.Integer, primary_key=True) # 主键
-    title = db.Column(db.String(60)) # 电影标题
+    title = db.Column(db.String(240)) # 电影标题
     year = db.Column(db.String(4)) # 电影年份
+    country = db.Column(db.String(120)) # 出品国家
+    type = db.Column(db.String(120))#电影类型
+    box = db.Column(db.String(50))#电影票房
 
 import click
 @app.cli.command()
@@ -76,23 +79,31 @@ def forge():
     """Generate fake data."""
     db.create_all()
 # 全局的两个变量移动到这个函数内
-    name = 'wang xiaozai'
+    name = '旺小仔'
     movies = [
-    {'title': 'My Neighbor Totoro', 'year': '1988'},
-    {'title': 'Dead Poets Society', 'year': '1989'},
-    {'title': 'A Perfect World', 'year': '1993'},
-    {'title': 'Leon', 'year': '1994'},
-    {'title': 'Mahjong', 'year': '1996'},
-    {'title': 'Swallowtail Butterfly', 'year': '1996'},
-    {'title': 'King of Comedy', 'year': '1999'},
-    {'title': 'Devils on the Doorstep', 'year': '1999'},
-    {'title': 'WALL-E', 'year': '2008'},
-    {'title': 'The Pork of Music', 'year': '2012'},
+    {'title': '战狼2', 'year': '2017', 'country': '中国', 'type': '战争', 'box': '56.84亿'},
+    {'title': '哪吒之魔童降世', 'year': '2019', 'country': '中国', 'type': '动画', 'box': '50.15亿'},
+    {'title': '流浪地球', 'year': '2019', 'country': '中国', 'type': '科幻', 'box': '46.86亿'},
+    {'title': '复仇者联盟4', 'year': '2019', 'country': '美国', 'type': '科幻', 'box': '42.5亿'},
+    {'title': '红海行动', 'year': '2018', 'country': '中国', 'type': '战争', 'box': '36.5亿'},
+    {'title': '唐人街探案2', 'year': '2018', 'country': '中国', 'type': '喜剧', 'box': '33.97亿'},
+    {'title': '我不是药神', 'year': '2018', 'country': '中国', 'type': '喜剧', 'box': '31亿'},
+    {'title': '中国机长', 'year': '2019', 'country': '中国', 'type': '剧情', 'box': '29.12亿'},
+    {'title': '速度与激情8', 'year': '2017', 'country': '美国', 'type': '动作', 'box': '26.7亿'},
+    {'title': '西虹市首富', 'year': '2018', 'country': '中国', 'type': '喜剧', 'box': '25.47亿'},
+    {'title': '复仇者联盟3', 'year': '2018', 'country': '美国', 'type': '科幻', 'box': '23.9亿'},
+    {'title': '捉妖记2', 'year': '2018', 'country': '中国', 'type': '喜剧', 'box': '22.37亿'},
+    {'title': '八佰', 'year': '2020', 'country': '中国', 'type': '战争', 'box': '30.10亿'},
+    {'title': '姜子牙', 'year': '2020', 'country': '中国', 'type': '动画', 'box': '16.02亿'},
+    {'title': '我和我的家乡', 'year': '2020', 'country': '中国', 'type': '剧情', 'box': '28.29亿'},
+    {'title': '你好，李焕英', 'year': '2021', 'country': '中国', 'type': '喜剧', 'box': '54.13亿'},
+    {'title': '长津湖', 'year': '2021', 'country': '中国', 'type': '战争', 'box': '53.48亿'},
+    {'title': '速度与激情9', 'year': '2021', 'country': '美国', 'type': '动作', 'box': '13.92亿'},
     ]
     user = User(name=name)
     db.session.add(user)
     for m in movies:
-        movie = Movie(title=m['title'], year=m['year'])
+        movie = Movie(title=m['title'], year=m['year'], country=m['country'], type=m['type'],box=m['box'])
         db.session.add(movie)
     db.session.commit()
     click.echo('Done.')
@@ -209,5 +220,9 @@ def delete(movie_id):
     db.session.commit() # 提交数据库会话
     flash('Item deleted.')
     return redirect(url_for('index')) # 重定向回主页
+
+
+
+
 
 
