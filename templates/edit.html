@@ -4,6 +4,9 @@
     <form method="post">
         Name <input type="text" name="title" autocomplete="off" required value="{{ movie.title }}">
         Year <input type="text" name="year" autocomplete="off" required value="{{ movie.year }}">
+        Country <input type="text" name="country" autocomplete="off" required value="{{ movie.country }}">
+        Type <input type="text" name="type" autocomplete="off" required value="{{ movie.type }}">
+        Box <input type="text" name="box" autocomplete="off" required value="{{ movie.box }}">
         <input class="btn" type="submit" name="submit" value="Update">
     </form>
 {% endblock %}

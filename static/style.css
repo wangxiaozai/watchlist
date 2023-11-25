@@ -64,7 +64,7 @@ nav li a:hover {
 .float-right {
     float: right;
 }
-.imdb {
+.douban {
     font-size: 12px;
     font-weight: bold;
     color: black;
@@ -80,9 +80,19 @@ input[type=submit] {
     font-family: inherit;
 }
 input[type=text] {
+    width: 60px;
     border: 1px solid #ddd;
 }
 input[name=year] {
+    width: 50px;
+}
+input[name=country] {
+    width: 50px;
+}
+input[name=type] {
+    width: 50px;
+}
+input[name=box] {
     width: 50px;
 }
 .btn {

@@ -7,6 +7,9 @@
                 <form method="post">
                         Name <input type="text" name="title" autocomplete="off" required>
                         Year <input type="text" name="year" autocomplete="off" required>
+                        Country <input type="text" name="country" autocomplete="off" required>
+                        Type <input type="text" name="type" autocomplete="off" required>
+                        Box <input type="text" name="box" autocomplete="off" required>
                         <input class="btn" type="submit" name="submit" value="Add">
                 </form>
         {% endif %}
@@ -20,7 +23,7 @@
                                 <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
                         </form>
                 {% endif %}
-                <a class="imdb" href="https://www.imdb.com/find?q={{movie.title }}" target="_blank" title="Find this movie on IMDb">IMDb</a>
+                <a class="douban" href=" https://movie.douban.com/subject_search?search_text={{ movie.title }}" target="_blank" title="Find this movie on douban">DouBan</a>
         </span>
         </li>
         {% endfor %}

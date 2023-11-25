@@ -180,12 +180,15 @@ def index():
 # 获取表单数据
         title = request.form.get('title') # 传入表单对应输入字段的name 值
         year = request.form.get('year')
+        country = request.form.get('country')
+        type = request.form.get('type')
+        box = request.form.get('box')
 # 验证数据
-        if not title or not year or len(year) > 4 or len(title)> 60:
+        if not title or not year or not country or not type or not box or len(year) > 4 or len(title)> 60:
             flash('Invalid input.') # 显示错误提示
             return redirect(url_for('index')) # 重定向回主页
 # 保存表单数据到数据库
-        movie = Movie(title=title, year=year) # 创建记录
+        movie = Movie(title=title, year=year, country=country, type=type, box=box) # 创建记录
         db.session.add(movie) # 添加到数据库会话
         db.session.commit() # 提交数据库会话
         flash('Item created.') # 显示成功创建的提示
@@ -201,12 +204,18 @@ def edit(movie_id):
     if request.method == 'POST': # 处理编辑表单的提交请求
         title = request.form['title']
         year = request.form['year']
-        if not title or not year or len(year) > 4 or len(title)> 60:
+        country = request.form['country']
+        type = request.form['type']
+        box = request.form['box']
+        if not title or not year or not country or not type or not box or len(year) > 4 or len(title)> 60:
             flash('Invalid input.')
             return redirect(url_for('edit', movie_id=movie_id))
 # 重定向回对应的编辑页面
         movie.title = title # 更新标题
         movie.year = year # 更新年份
+        movie.country = country  # 更新国家
+        movie.type = type  # 更新类型
+        movie.box = box  # 更新票房
         db.session.commit() # 提交数据库会话
         flash('Item updated.')
         return redirect(url_for('index')) # 重定向回主页
