@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ user.name }}'s Watchlist</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" type="text/css">
+    {% endblock %}
+</head>
+<body>
+    {% for message in get_flashed_messages() %}
+        <div class="alert">{{ message }}</div>
+    {% endfor %}
+    <h2>
+        <img alt="Avatar" class="avatar" src="{{ url_for('static', filename='images/avatar.png') }}">
+        {{ user.name }}的演员信息系统
+    </h2>
+     <nav>
+        <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+
+            {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('settings') }}">Settings</a></li>
+                <li><a href="{{ url_for('logout') }}">Logout</a></li>
+            {% else %}
+                <li><a href="{{ url_for('act') }}">Actor</a></li>
+                <li><a href="{{ url_for('login') }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+{% block content %}
+<p>{{ players|length }} Titles</p>
+
+                <form method="post">
+                        Name <input type="text" name="name" autocomplete="off" required>
+                        Gender <input type="text" name="gender" autocomplete="off" required>
+                        Country <input type="text" name="country" autocomplete="off" required>
+                        <input class="btn" type="submit" name="submit" value="Add">
+                </form>
+<ul class="player-list">
+        {% for player in players %}
+        <li>{{ player.name }} - {{ player.gender }} - {{ player.country }}
+        <span class="float-right">
+            <a class="btn" href="{{ url_for('editact', player_id=player.id) }}">Edit</a>
+            <form class="inline-form" method="post" action="{{ url_for('.deleteact', player_id=player.id) }}">
+                                <input class="btn" type="submit" name="deleteact" value="Delete" onclick="return confirm('Are you sure?')">
+                        </form>
+            <a class="baidu" href=" https://cn.bing.com/search?q={{ player.name }}" target="_blank" title="Find this actor on baidu">Baidu</a>
+        </span>
+        </li>
+        {% endfor %}
+</ul>
+
+<img alt="Walking Totoro" class="totoro" src="{{ url_for('static', filename='images/totoro.gif') }}" title="to~to~ro~">
+{% endblock %}
+<footer>
+    <small>&copy; 2018 <a href="http://helloflask.com/tutorial">HelloFlask</a></small>
+</footer>
+</body>
+</html>

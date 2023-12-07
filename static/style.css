@@ -33,6 +33,23 @@ footer {
 .movie-list li:hover {
     background-color: #f8f9fa;
 }
+/* 演员列表 */
+.player-list {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+}
+.player-list li {
+    padding: 12px 24px;
+    border-bottom: 1px solid #ddd;
+}
+.player-list li:last-child {
+    border-bottom:none;
+}
+.player-list li:hover {
+    background-color: #f8f9fa;
+}
  /* 龙猫图片 */
 .totoro {
     display: block;
@@ -74,7 +91,15 @@ nav li a:hover {
     padding: 3px 5px;
 }
 
-
+.baidu {
+    font-size: 12px;
+    font-weight: bold;
+    color: black;
+    text-decoration: none;
+    background: #F5C518;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
 /* 覆盖某些浏览器对 input 元素定义的字体 */
 input[type=submit] {
     font-family: inherit;
@@ -94,6 +119,9 @@ input[name=type] {
 }
 input[name=box] {
     width: 50px;
+}
+input[name=searchTerm]{
+    width: 60px;
 }
 .btn {
     font-size: 12px;

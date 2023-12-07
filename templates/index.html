@@ -3,6 +3,14 @@
 {% block content %}
 
 <p>{{ movies|length }} Titles</p>
+        <form action="/search" method="post">
+                        <input type="text" name="searchTerm" placeholder="输入电影名称搜索">
+                        <input type="submit" value="Search">
+                </form>
+        <form action="/cate" method="post">
+                        <input type="text" name="searchTerm" placeholder="输入电影类别搜索">
+                        <input type="submit" value="Category">
+                </form>
         {% if current_user.is_authenticated %}
                 <form method="post">
                         Name <input type="text" name="title" autocomplete="off" required>
@@ -12,11 +20,13 @@
                         Box <input type="text" name="box" autocomplete="off" required>
                         <input class="btn" type="submit" name="submit" value="Add">
                 </form>
+
         {% endif %}
 <ul class="movie-list">
         {% for movie in movies %}
         <li>{{ movie.title }} - {{ movie.year }} - {{ movie.country }} - {{ movie.type }} - {{ movie.box }}
         <span class="float-right">
+
                 {% if current_user.is_authenticated %}
                         <a class="btn" href="{{ url_for('edit', movie_id=movie.id) }}">Edit</a>
                         <form class="inline-form" method="post" action="{{ url_for('.delete', movie_id=movie.id) }}">
