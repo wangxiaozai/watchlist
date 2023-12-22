@@ -10,6 +10,17 @@ from flask_login import login_required, logout_user
 from flask_login import login_user
 from flask_login import UserMixin
 
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+import io
+import base64
+from flask import render_template, send_file
+
+plt.rcParams['font.sans-serif'] = ['SimHei']  # 设置中文字体为黑体
+plt.rcParams['axes.unicode_minus'] = False  # 用来正常显示负号
+
+
 WIN = sys.platform.startswith('win')
 if WIN: # 如果是 Windows 系统， 使用三个斜线
     prefix = 'sqlite:///'
@@ -370,3 +381,39 @@ def editact(player_id):
         flash('Item updated.')
         return redirect(url_for('act')) # 重定向回主页
     return render_template('editact.html', player=player) # 传入被编辑的电影记录
+
+@app.route('/searchactor', methods=['POST'])
+def searchactor():
+    players = Player.query.all()
+    search_term = request.form['searchTerm'].lower()
+    results = [player for player in players if search_term in player.name.lower()]  # 使用列表推导式筛选匹配的演员
+    return render_template('actor.html', players=results)
+
+
+
+@app.route('/visualization', methods=['GET'])
+def visualize():
+    import plotly.graph_objs as go
+    # 生成票房数据可视化图表
+    top_movies = Movie.query.order_by(Movie.box.desc()).limit(10).all()
+    titles = [movie.title for movie in top_movies]
+    box_office = [float(movie.box[:-1]) for movie in top_movies]  # 去除"亿"并转换为浮点数
+
+    # 创建水平柱状图
+    fig = go.Figure(go.Bar(
+        x=box_office,
+        y=titles,
+        orientation='h',
+        marker_color='skyblue'  # 设置颜色为天蓝色
+    ))
+
+    # 设置布局
+    fig.update_layout(
+        yaxis=dict(tickfont=dict(size=14))  # 设置纵轴坐标标签字体大小
+    )
+
+    # 将图表可视化为HTML页面
+    graph_html = fig.to_html(full_html=False, default_height=600, default_width=800)
+
+    # 渲染可视化页面，并传入图表HTML字符串
+    return render_template('visualization.html', graph_html=graph_html)

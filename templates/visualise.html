@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>票房可视化</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      canvas{
+        -moz-user-select: none;
+        -webkit-user-select: none;
+        -ms-user-select: none;
+      }
+    </style>
+</head>
+<body>
+    <h1>电影票房可视化</h1>
+    <canvas id="myChart" width="400" height="400"></canvas>
+
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var movies = [
+            {'title': '战狼2', 'box': 56.84},
+            {'title': '哪吒之魔童降世', 'box': 50.15},
+            {'title': '流浪地球', 'box': 46.86},
+            {'title': '复仇者联盟4', 'box': 42.5},
+            {'title': '红海行动', 'box': 36.5},
+            {'title': '唐人街探案2', 'box': 33.97},
+            {'title': '疯狂的石头', 'box': 1.61},
+            {'title': '当幸福来敲门', 'box': 8.3},
+            {'title': '怦然心动', 'box': 4.68},
+            {'title': '卧底巨星', 'box': 12.6}
+        ];
+
+        var labels = movies.map(function(movie) {
+            return movie.title;
+        });
+
+        var data = movies.map(function(movie) {
+            return movie.box;
+        });
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels,
+                datasets: [{
+                    label: '票房（亿）',
+                    data: data,
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+</body>
+</html>

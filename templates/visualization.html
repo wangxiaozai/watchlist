@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+            <img src="data:image/png;base64,{{ graph_url }}" class="img-fluid" >
+        </div>
+            {{ graph_html | safe }}
+    </div>
+</body>
+{% endblock %}

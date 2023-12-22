@@ -32,7 +32,10 @@
     </nav>
 {% block content %}
 <p>{{ players|length }} Titles</p>
-
+                <form action="/searchactor" method="post">
+                        <input type="text" name="searchTerm" placeholder="输入演员姓名搜索">
+                        <input type="submit" value="Search">
+                </form>
                 <form method="post">
                         Name <input type="text" name="name" autocomplete="off" required>
                         Gender <input type="text" name="gender" autocomplete="off" required>

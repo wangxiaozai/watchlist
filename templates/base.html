@@ -22,8 +22,9 @@
             <li><a href="{{ url_for('index') }}">Home</a></li>
 
             {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('settings') }}">Settings</a></li>
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
+                <li><a href="{{ url_for('act') }}">Actor</a></li>
+                <li><a href="{{ url_for('visualize') }}"><button>Visualize Box Office</button></a></li>
             {% else %}
                 <li><a href="{{ url_for('act') }}">Actor</a></li>
                 <li><a href="{{ url_for('login') }}">Login</a></li>
