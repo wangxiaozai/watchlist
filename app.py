@@ -417,3 +417,34 @@ def visualize():
 
     # 渲染可视化页面，并传入图表HTML字符串
     return render_template('visualization.html', graph_html=graph_html)
+
+@app.route('/box-office-analysis', methods=['GET'])
+def box_office_analysis():
+    import plotly.graph_objs as go
+
+    # 从数据库中获取不同类型电影的票房数据
+    type_box_office = db.session.query(Movie.type, db.func.sum(db.func.replace(Movie.box, '亿', '').cast(db.Float))).group_by(Movie.type).all()
+    types = [record[0] for record in type_box_office]
+    box_office_by_type = [record[1] for record in type_box_office]
+
+    # 创建水平柱状图
+    fig = go.Figure(go.Bar(
+        x=box_office_by_type,
+        y=types,
+        orientation='h',
+        marker_color='skyblue'  # 设置颜色为天蓝色
+    ))
+
+    # 设置布局
+    fig.update_layout(
+        title='不同电影类别的票房分析',
+        xaxis_title='票房（亿元）',
+        yaxis_title='电影类别',
+        yaxis=dict(tickfont=dict(size=14))  # 设置纵轴坐标标签字体大小
+    )
+
+    # 将图表可视化为HTML页面
+    graph_html = fig.to_html(full_html=False, default_height=600, default_width=800)
+
+    # 渲染可视化页面，并传入图表HTML字符串
+    return render_template('box_office_analysis.html', graph_html=graph_html)

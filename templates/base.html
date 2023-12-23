@@ -25,6 +25,7 @@
                 <li><a href="{{ url_for('logout') }}">Logout</a></li>
                 <li><a href="{{ url_for('act') }}">Actor</a></li>
                 <li><a href="{{ url_for('visualize') }}"><button>Visualize Box Office</button></a></li>
+            <li><a href="{{ url_for('box_office_analysis') }}"><button>Visualize Category Office</button></a></li>
             {% else %}
                 <li><a href="{{ url_for('act') }}">Actor</a></li>
                 <li><a href="{{ url_for('login') }}">Login</a></li>
